@@ -2,7 +2,7 @@
   "name": "nice-buckets",
   "description": "Get a list of n sub-ranges that contain a range. Or something.",
   "keywords": ["jenk", "bucket", "range"],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "phil",
   "main": "buckets.js",
   "files": ["buckets.js"],

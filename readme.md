@@ -7,6 +7,12 @@ get human-friendly ranges
 The structure of this repo and some generic parts of the code are heavily inspired by boronine's [husl](https://github.com/boronine/husl).
 
 
+Versions
+--------
+
+This module is experimental -- it may start following semver later, but for now, every new version may break the api and the behavior.
+
+
 License
 -------
 

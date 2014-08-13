@@ -4,13 +4,46 @@ Nice Buckets!
 get human-friendly ranges
 
 
-The structure of this repo and some generic parts of the code are heavily inspired by boronine's [husl](https://github.com/boronine/husl).
+Install
+-------
+
+```bash
+$ npm install nice-buckets
+```
+
+
+Usage
+-----
+
+```javascript
+var niceBuckets = require('nice-buckets');
+
+var buckets = 4,
+    range: [3321.723, 78052.536];
+
+console.log(buckets.minFigs(buckets, range));
+```
+
+yeilds the pleasing intervals:
+
+```json
+[ [ 0, 20000 ],
+  [ 20000, 40000 ],
+  [ 40000, 60000 ],
+  [ 60000, 80000 ] ]
+```
 
 
 Versions
 --------
 
 This module is experimental -- it may start following semver later, but for now, every new version may break the api and the behavior.
+
+
+...
+---
+
+The structure of this repo and some generic parts of the code are heavily inspired by boronine's [husl](https://github.com/boronine/husl).
 
 
 License

@@ -59,7 +59,7 @@ minFigs = (stops, range, maxOut, base) ->
   bucket = nicify bucket + (bucket / stops), bucket / stops
 
   # clean up floating point errors
-  r = (n) -> Math.round(n / precision) * precision
+  r = (n) -> Math.round(n / precision) / (1 / precision)
 
   ((do (m=lowest+bucket*n) -> [r(m), r(m+bucket)]) for n in [0..stops-1])
 

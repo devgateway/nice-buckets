@@ -62,7 +62,7 @@
     bucket = (highest - lowest) / stops;
     bucket = nicify(bucket + (bucket / stops), bucket / stops);
     r = function(n) {
-      return Math.round(n / precision) * precision;
+      return Math.round(n / precision) / (1 / precision);
     };
     _results = [];
     for (n = _i = 0, _ref = stops - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; n = 0 <= _ref ? ++_i : --_i) {

@@ -25,24 +25,43 @@ minFigs = (stops, range, maxOut, base) ->
 
   # simplification 1: limit to maxOut * exact partition size overlap on ends
   bucket = (highest - lowest) / stops
-  max_overlap = maxOut * bucket
 
-  # round lower bound down to within max_overlap
+  # lowest power of base we round to
+  precision = Infinity
+
+  # find number in [n - k, n] which has minimal sig figs
+  nicify = (n, k) ->
+    # next lowest power of base to k
+    p = base ** Math.floor ( (Math.log k) / Math.log base )
+    # next highest power of base to k
+    q = base * p
+
+    # there are two candidates for least sig figs
+    # first,
+    min = q * Math.floor ( n / q )
+    precision = q if q < precision
+    # but this may be outside allowable range
+    if min < n - k
+      # second, which is guaranteed to be in allowable range
+      min = p * Math.floor ( n / p )
+      precision = p if p < precision
+    return min
+
+  # round lower bound down to within maxOverlap
   # remove most sig figs allowable from lower bound
-  k = base ** Math.floor ( (Math.log max_overlap) / Math.log base ) # next lowest power of base
-  min = k * Math.floor lowest / k
+  lowest = nicify lowest, (maxOut * bucket)
 
   # ensure entire range is covered
-  bucket += (lowest - min) / stops
-  # increase bin size by up to ((lowest - min) + max_overlap) / stops
+  bucket = (highest - lowest) / stops
+
+  # increase bin size by up to (bucket / stops)
   # removing the most sig figs possible
-  k = base ** Math.floor ( Math.log max_overlap / stops, base )
-  bucket = (Math.ceil bucket / k) * k
+  bucket = nicify bucket + (bucket / stops), bucket / stops
 
   # clean up floating point errors
-  r = (n) -> Math.round(n / k) / (1/k)
+  r = (n) -> Math.round(n / precision) * precision
 
-  ((do (m=min+bucket*n) -> [r(m), r(m+bucket)]) for n in [0..stops-1])
+  ((do (m=lowest+bucket*n) -> [r(m), r(m+bucket)]) for n in [0..stops-1])
 
 
 root =
@@ -52,7 +71,7 @@ root =
 # export tricks borrowed from husl:
 # github.com/boronine/husl/blob/d31224c26cf30f0f956a7e3d5d22590ec63a958d/husl.coffee#L306
 
-# If no framework is available, just export to the global object (window.HUSL
+# If no framework is available, just export to the global object (window.buckets
 # in the browser)
 @buckets = root unless module? or requirejs?
 # Export to Node.js

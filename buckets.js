@@ -32,7 +32,7 @@
   };
 
   minFigs = function(stops, range, maxOut, base) {
-    var bucket, highest, k, lowest, max_overlap, min, n, r, _i, _ref, _results;
+    var bucket, highest, lowest, n, nicify, precision, r, _i, _ref, _results;
     if (maxOut == null) {
       maxOut = 0.99;
     }
@@ -41,20 +41,34 @@
     }
     lowest = range[0], highest = range[1];
     bucket = (highest - lowest) / stops;
-    max_overlap = maxOut * bucket;
-    k = Math.pow(base, Math.floor((Math.log(max_overlap)) / Math.log(base)));
-    min = k * Math.floor(lowest / k);
-    bucket += (lowest - min) / stops;
-    k = Math.pow(base, Math.floor(Math.log(max_overlap / stops, base)));
-    bucket = (Math.ceil(bucket / k)) * k;
+    precision = Infinity;
+    nicify = function(n, k) {
+      var min, p, q;
+      p = Math.pow(base, Math.floor((Math.log(k)) / Math.log(base)));
+      q = base * p;
+      min = q * Math.floor(n / q);
+      if (q < precision) {
+        precision = q;
+      }
+      if (min < n - k) {
+        min = p * Math.floor(n / p);
+        if (p < precision) {
+          precision = p;
+        }
+      }
+      return min;
+    };
+    lowest = nicify(lowest, maxOut * bucket);
+    bucket = (highest - lowest) / stops;
+    bucket = nicify(bucket + (bucket / stops), bucket / stops);
     r = function(n) {
-      return Math.round(n / k) / (1 / k);
+      return Math.round(n / precision) * precision;
     };
     _results = [];
     for (n = _i = 0, _ref = stops - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; n = 0 <= _ref ? ++_i : --_i) {
       _results.push((function(m) {
         return [r(m), r(m + bucket)];
-      })(min + bucket * n));
+      })(lowest + bucket * n));
     }
     return _results;
   };

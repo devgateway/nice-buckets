@@ -1,6 +1,8 @@
 Nice Buckets!
 =============
 
+[![Build Status](https://travis-ci.org/devgateway/nice-buckets.svg?branch=master)](https://travis-ci.org/devgateway/nice-buckets)
+
 get human-friendly ranges
 
 
@@ -31,6 +33,12 @@ yeilds the pleasing intervals:
   [ 20000, 40000 ],
   [ 40000, 60000 ],
   [ 60000, 80000 ] ]
+```
+
+Note that the number of buckets returned may, in some cases, be fewer than those requested.
+```nodejs
+> require('nice-buckets').minFigs(2, [0, 0]);  // can't really create more than one bucket for a range span of 0....
+[ [ 0, 0 ] ]
 ```
 
 

@@ -36,6 +36,7 @@ yeilds the pleasing intervals:
 ```
 
 Note that the number of buckets returned may, in some cases, be fewer than those requested.
+
 ```nodejs
 > require('nice-buckets').minFigs(2, [0, 0]);  // can't really create more than one bucket for a range span of 0....
 [ [ 0, 0 ] ]

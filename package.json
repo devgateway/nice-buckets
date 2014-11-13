@@ -1,14 +1,30 @@
 {
   "name": "nice-buckets",
   "description": "Get a list of n sub-ranges that contain a range. Or something.",
-  "keywords": ["jenks", "bucket", "range"],
-  "version": "0.1.3",
+  "keywords": [
+    "jenks",
+    "bucket",
+    "range"
+  ],
+  "version": "0.2.0",
   "author": "phil",
   "main": "buckets.js",
-  "files": ["buckets.js"],
+  "files": [
+    "buckets.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/devgateway/nice-buckets.git"
   },
-  "homepage": "https://github.com/devgateway/nice-buckets.git"
+  "homepage": "https://github.com/devgateway/nice-buckets.git",
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/devgateway/nice-buckets/issues"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "mocha"
+  }
 }

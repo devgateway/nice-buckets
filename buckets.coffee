@@ -3,6 +3,8 @@ magic = (stops, range, intervals) ->
   intervals ?= [1, 1.2, 1.5, 1.6, 2, 2.5, 3, 5, 8]
   [lowest, highest] = range
   smallest = (highest - lowest) / stops
+  if smallest == 0
+    return [range]
   magnitude = 10 ** Math.floor ((Math.log smallest) / Math.log 10)
 
   for interval in intervals
@@ -25,6 +27,10 @@ minFigs = (stops, range, maxOut, base) ->
 
   # simplification 1: limit to maxOut * exact partition size overlap on ends
   bucket = (highest - lowest) / stops
+
+  # skip out of there is no range
+  if bucket == 0
+    return [range]
 
   # lowest power of base we round to
   precision = Infinity

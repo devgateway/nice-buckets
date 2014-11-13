@@ -9,6 +9,9 @@
     }
     lowest = range[0], highest = range[1];
     smallest = (highest - lowest) / stops;
+    if (smallest === 0) {
+      return [range];
+    }
     magnitude = Math.pow(10, Math.floor((Math.log(smallest)) / Math.log(10)));
     for (_i = 0, _len = intervals.length; _i < _len; _i++) {
       interval = intervals[_i];
@@ -41,6 +44,9 @@
     }
     lowest = range[0], highest = range[1];
     bucket = (highest - lowest) / stops;
+    if (bucket === 0) {
+      return [range];
+    }
     precision = Infinity;
     nicify = function(n, k) {
       var min, p, q;
